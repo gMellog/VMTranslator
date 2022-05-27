@@ -1,22 +1,7 @@
 #include "VMTranslator.h"
 #include "utils.h"
 #include <filesystem>
-
-//DONE
-//Process directory +
-//Process vm file only + 
-//Process multiple vm files +
-
-//TODO
-//implement BRANCHING
-//if-goto
-//goto
-//label
-
-//implement function
-//function
-//call
-//return
+#include <array>
 
 VMTranslator::VMTranslator()
 {
@@ -530,8 +515,6 @@ std::string VMTranslator::func() const
     return r;
 }
 
-//For every label inside func you should add to it functionName$ where functionName is Xxx.foo
-
 std::string VMTranslator::call() const
 {
     std::string r;
@@ -540,7 +523,7 @@ std::string VMTranslator::call() const
     ++retFuncRunNum;
 
     //essential for caller (things to remember when we will comback after callee)
-    std::vector<std::string> pushValues
+    const std::array<std::string, 4> pushValues
     {
         "LCL", "ARG", "THIS", "THAT"
     };
@@ -618,7 +601,7 @@ std::string VMTranslator::_return() const
         ;
 
     //order matters
-    const std::vector<std::string> restoreValues
+    const std::array<std::string, 4> restoreValues
     {
         "THAT", "THIS", "ARG", "LCL"
     };
